@@ -36,10 +36,16 @@ const Sidebar = observer(() => {
       <div className="mt-16">
         <ul className="text-2xl " style={{ lineHeight: "60px" }}>
           <li
-            className={menuClass(HomeMenus.KeyList)}
-            onClick={() => onMenuClick(HomeMenus.KeyList)}
+            className={menuClass(HomeMenus.UniProfile)}
+            onClick={() => onMenuClick(HomeMenus.UniProfile)}
           >
-            My Web3 Accounts
+            My UniProfile
+          </li>
+          <li
+            className={menuClass(HomeMenus.SocialLinks)}
+            onClick={() => onMenuClick(HomeMenus.SocialLinks)}
+          >
+            My Social Links
           </li>
           <li
             className={menuClass(HomeMenus.Web2Accounts)}

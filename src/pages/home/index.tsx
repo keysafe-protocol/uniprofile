@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Accounts from "./accounts";
 import Sidebar from "./sidebar";
+import Uniprofile from "./uni-profile";
 import Web2Accounts from "./web2-accounts";
 
 const Home = observer(() => {
@@ -20,16 +21,17 @@ const Home = observer(() => {
   const [active = HomeMenus.KeyList] = useQueryParam<HomeMenus>("active");
 
   useEffect(() => {
-    if (!userInfo.email) {
-      navigate(ROUTES.LOGIN_HOME);
-    } else if (isEmpty(accountChains)) {
-      navigate(ROUTES.REGISTER);
-    }
+    // if (!userInfo.email) {
+    //   navigate(ROUTES.LOGIN_HOME);
+    // } else if (isEmpty(accountChains)) {
+    //   navigate(ROUTES.REGISTER);
+    // }
   }, []);
 
   const COMPONENT_MAP: Partial<Record<HomeMenus, ReactNode>> = {
     [HomeMenus.KeyList]: <Accounts />,
     [HomeMenus.Web2Accounts]: <Web2Accounts />,
+    [HomeMenus.UniProfile]: <Uniprofile />,
   };
 
   return (
