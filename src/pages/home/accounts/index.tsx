@@ -132,8 +132,8 @@ const Accounts = observer(() => {
           {renderTitle()}
           {ownKeys.length > 0
             ? ownKeys.map((chain, index) => (
-              <ChainKey key={index} chain={chain} />
-            ))
+                <ChainKey key={index} chain={chain} />
+              ))
             : renderEmpty("No keys owned by me")}
         </div>
         <span
@@ -143,7 +143,7 @@ const Accounts = observer(() => {
           Add keys
         </span>
       </div>
-      {/* <div className="mt-10">
+      <div className="mt-10">
         <h3 className="text-2xl text-baseblue font-bold">Me As Delegate</h3>
         <div className="mt-6">
           {renderTitle()}
@@ -152,8 +152,8 @@ const Accounts = observer(() => {
                 <ChainKey key={index} chain={chain} delegate />
               ))
             : renderEmpty("No keys delegate to me")}
-        </div> */}
-      {/* </div> */}
+        </div>
+      </div>
     </div>
   );
 });

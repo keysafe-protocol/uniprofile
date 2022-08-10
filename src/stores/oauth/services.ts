@@ -1,20 +1,14 @@
 import request from "utils/request";
-import { OAuthInfo, OAuthRequest } from "./types";
-type TOAuthType = "github" | "google" | "twitter"
+import { OAuthRequest } from "./types";
+
 const oauthServices = {
   oauth(data: OAuthRequest): Promise<{ profile: string }> {
     return request.post(`/oauth`, data);
   },
 
   getOAuthInfo() {
-    return request.post(`/oauth_info`);
+    return request.post(`/info_oauth`);
   },
-  getOAuthInfoByWeb3Account(account: string) {
-    return request.post(`/oauth_info`, {account});
-  },
-  registerOauthByWeb3 (type: TOAuthType, data: any) {
-    return request.post(`/register_${type}_oauth`,data)
-  }
 };
 
 export default oauthServices;

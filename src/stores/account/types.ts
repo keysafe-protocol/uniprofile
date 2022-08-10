@@ -5,10 +5,6 @@ export type AuthConfirmRequest = {
   mail: string;
   cipher_code: string;
 };
-export type DAuthConfirmRequest = {
-  email: string;
-  confirm_code: string;
-};
 
 export type AccountChain = {
   chain: ChainType;
@@ -19,10 +15,4 @@ export type AccountChain = {
 export type UserInfo = {
   email?: string;
   key?: string;
-};
-
-export type Web3UserInfo = {
-  account?: string,
-  username?: string,
-  email?: string
 };

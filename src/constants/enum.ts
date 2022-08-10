@@ -17,8 +17,6 @@ export enum HomeMenus {
   Web2Accounts = "web2-accounts",
   AuthConditions = "auth-conditions",
   GeneralSettings = "general-settings",
-  UniProfile = "uni-profile",
-  SocialLinks = "social-links",
   Logout = "logout",
 }
 

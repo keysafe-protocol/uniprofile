@@ -11,19 +11,22 @@ const request = axios.create({
   baseURL:
     process.env.NODE_ENV === "development"
       ? // ? "https://47.93.85.187:30000/ks"
-        "https://demo.keysafe.network:30000/ks" // hk 域名
+        "https://demo.keysafe.network/ks" // hk 域名
       : "/ks",
   // baseURL: "https://bb2d4198-bc40-40c8-97c6-f18a802aee3a.mock.pstmn.io/",
 });
 
 request.interceptors.request.use((config) => {
   const { data = {}, headers } = config;
+  const token = ls.get(LOCAL_STORAGE_TOKEN);
   return {
     ...config,
     headers: {
       ...headers,
+      authorization: token,
     },
     data: {
+      account: ls.get(LOCAL_STORAGE_KEY_ACCOUNT),
       ...data,
     },
   };
@@ -46,7 +49,7 @@ request.interceptors.response.use(
   },
   (error: any) => {
     if (error.response.status === 401) {
-      // window.location.href = `#${ROUTES.LOGIN_HOME}`;
+      window.location.href = `#${ROUTES.LOGIN_HOME}`;
     } else {
       message({
         content: error?.response?.data || error?.message,
