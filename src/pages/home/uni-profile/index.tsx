@@ -5,12 +5,14 @@ import React, { useState } from 'react';
 import { checkEmail } from 'utils';
 import { useEthers } from '@usedapp/core';
 import { ethers } from 'ethers';
+import SignButton from 'components/web3/SignButton';
+import services from 'stores/account/services';
 const Uniprofile = () => {
   const { library, account } = useEthers()
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [visible, setVisible] = useState(false)
-  const [verified, setVerified] = useState(false)
+  const [verified, setVerified] = useState(true)
   const onUsernameChange = (value: string) => {
     setUsername(value)
   }
@@ -18,14 +20,6 @@ const Uniprofile = () => {
     setEmail(value)
   }
   const onSave = async () => {
-    const signer = await library?.getSigner()
-    const unsignedMessage = JSON.stringify({
-      username,
-      email
-    })
-    const signedMessage = await signer?.signMessage(unsignedMessage)
-
-    console.log(signedMessage)
     // let recovered = ethers.utils.verifyMessage(JSON.stringify({
     //   username,
     //   email
@@ -33,6 +27,12 @@ const Uniprofile = () => {
     // console.log("recovered", signedMessage)
     // TODO: 调用后端接口, 传入签名前后的数据, 后端可以拿到钱包地址
 
+  }
+  const onSignSuccess = async (signedMessage: string) => {
+    await services.registerWeb3User({
+      sig: signedMessage,
+      data: { uname: username, email }
+    })
   }
   const onVerify = () => {
     email && checkEmail(email) && setVisible(true);
@@ -67,17 +67,16 @@ const Uniprofile = () => {
 
       {/* 按钮 */}
       <footer className="mt-10">
-        <Button
+        <SignButton
           className="mr-4"
-          type="primary"
-          onClick={onSave}
           disable={!verified || !account}
-        >
-          SAVE
-        </Button>
+          text="SAVE"
+          message={JSON.stringify({ uname: username, email })}
+          onSuccess={onSignSuccess}
+        />
       </footer>
     </div>
-  </section>;
+  </section >;
 
 };
 

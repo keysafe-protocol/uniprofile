@@ -1,10 +1,9 @@
-import React, { FC, useEffect, useState } from "react"
+import React, { FC, useState } from "react"
 import Dialog from "rc-dialog";
 import Button from "components/button";
 import StepCode from "./SendCode";
 import Input from "components/input";
 import accountServices from "stores/account/services";
-import { encrypt2 } from "utils/secure";
 
 
 type Props = {
@@ -17,12 +16,11 @@ type Props = {
 const VerifyEmail: FC<Props> = ({ email, onCancel, onOk }) => {
   const [code, setCode] = useState('')
 
-
+  // TODO: confirm email code
   const onContinueClick = async () => {
-    await accountServices.authConfirm({
-      account: email,
-      mail: email,
-      cipher_code: encrypt2(code),
+    await accountServices.dAuthConfirm({
+      email,
+      confirm_code: code,
     });
     onOk()
   };

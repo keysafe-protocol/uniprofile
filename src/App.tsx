@@ -20,7 +20,7 @@ import Home from "pages/home";
 import Loading from "components/loading";
 import Test from "pages/test";
 import OAuthResult from "pages/oauth-result";
-import { Config, DAppProvider, Mainnet } from "@usedapp/core";
+import { Config, DAppProvider, Mainnet, useEthers } from "@usedapp/core";
 import { getDefaultProvider } from "ethers";
 
 
@@ -33,11 +33,7 @@ const config: Config = {
 }
 const App = observer(() => {
   const { accountStore } = useStores();
-  const { loading } = useRequest(async () => {
-    return accountStore.loadUserInfo();
-  });
-
-  if (loading) return <Loading />;
+  const { account } = useEthers()
 
   return (
     <DAppProvider config={config}>

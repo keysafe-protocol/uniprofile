@@ -4,14 +4,17 @@ import Menu from "rc-menu"
 import React from "react"
 import { FC } from "react"
 import arrowIcon from "assets/imgs/arrow-down.svg";
+import services from "stores/account/services"
 
 const WalletAccount: FC = () => {
-  const { activateBrowserWallet, account, deactivate } = useEthers()
+  const { activateBrowserWallet, account, deactivate, active } = useEthers()
   return <div>
 
-    {!account ? (
+    {!active || !account ? (
       <div>
-        <button onClick={() => activateBrowserWallet()}>Connect to wallet</button>
+        <button onClick={() => {
+          activateBrowserWallet()
+        }}>Connect to wallet</button>
       </div>
     ) : (
       <Dropdown

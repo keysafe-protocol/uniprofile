@@ -142,7 +142,7 @@ const LoginSteps: FC<Props> = observer(({ type }) => {
       // accountStore.updateUserInfo({
       //   email: email,
       // });
-      navigate(ROUTES.HOME);
+      // navigate(ROUTES.HOME);
     }
   };
 
