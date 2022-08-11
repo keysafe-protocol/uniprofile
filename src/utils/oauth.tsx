@@ -34,6 +34,7 @@ const oauth = {
       redirect_uri: `${window.location.origin}/#${ROUTES.OAUTH_RESULT}`,
       scope: "user",
     };
+    console.log(`${window.location.origin}/#${ROUTES.OAUTH_RESULT}`)
     window.open(
       `https://github.com/login/oauth/authorize?${queryString.stringify(
         config
