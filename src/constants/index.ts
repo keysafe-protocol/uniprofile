@@ -7,4 +7,5 @@ export const CHAIN_TYPE_MAP = {
   [ChainType.Boba]: "Boba Rinkeby",
   [ChainType.Astar]: "Astar",
 };
-export const GITHUB_CLIENT_ID = "fd2d170df56ebacde768";
+export const GITHUB_CLIENT_ID = "27b9d4a2f8b623943740";
+// export const GITHUB_CLIENT_ID = "fd2d170df56ebacde768";
