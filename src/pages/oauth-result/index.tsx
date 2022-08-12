@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import queryString from "query-string";
 import { isString } from "lodash-es";
 import oauthServices from "stores/oauth/services";
-import { useCountDown, useRequest } from "ahooks";
+import { useCountDown, useLocalStorageState, useRequest } from "ahooks";
 import { OAuthOrg, PostMesaageType } from "constants/enum";
 import dayjs from "dayjs";
 import { formatCountDown } from "utils";
@@ -10,10 +10,16 @@ import { formatCountDown } from "utils";
 const OAuthResult = (props: any) => {
   const postedRef = useRef(false);
   const [targetDate, setTargetDate] = useState<Date>();
+  const [token, setToken] = useLocalStorageState<string | undefined>(
+    'github_token',
+    {
+      defaultValue: '',
+    },
+  );
   const [countDown] = useCountDown({
     targetDate,
     onEnd: () => {
-      window.close();
+      // window.close();
     },
   });
 
@@ -36,6 +42,7 @@ const OAuthResult = (props: any) => {
         },
         window.opener.location
       );
+      setToken(code as string)
       setTargetDate(
         dayjs()
           .add(3, "s")

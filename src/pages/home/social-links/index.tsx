@@ -15,6 +15,7 @@ import { useEthers } from "@usedapp/core";
 import services from "stores/oauth/services";
 import Web3Identicials from "./web3Identicials";
 import oauthServices from "stores/oauth/services";
+import ls from "utils/ls";
 
 const SocialLinks = observer(() => {
   const {
@@ -28,7 +29,7 @@ const SocialLinks = observer(() => {
     ready: !!account
   });
   const onSave = async (signedMessage: string) => {
-    await services.registerOauthByWeb3('github', { data: "fake oauth code", sig: signedMessage })
+    await services.registerOauthByWeb3('github', { data: ls.get('github_token'), sig: signedMessage })
     oauthStore.loadOAuthInfoByWeb3Account(account!)
   }
   if (loading) return <Loading />;
@@ -47,7 +48,7 @@ const SocialLinks = observer(() => {
       <SignButton
         className="mt-10"
         text="SAVE"
-        message={"fake oauth code"}
+        message={ls.get('github_token')}
         onSuccess={onSave}>
       </SignButton>
       <Web3Identicials />

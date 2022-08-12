@@ -1,13 +1,15 @@
-import Button from "components/button";
 import React, { FC } from "react";
 
 
 interface IIdentityItem {
-  src: string
+  src: string,
+  link: string
 }
-const IdentityItem: FC<IIdentityItem> = ({ src }) => {
-  return <div className="my-3 mr-5 inline-flex cursor-pointer">
-    <img src={src} alt="" width={200} height={'auto'} />
+const IdentityItem: FC<IIdentityItem> = ({ src, link }) => {
+  return <div className="my-3 mr-5 inline-block cursor-pointer">
+    <a href={link} target="__blank">
+      <img src={src} alt="" width={200} max-height={30} />
+    </a>
   </div>
 }
 const identities = [
@@ -29,9 +31,9 @@ const identities = [
 const Web3Identicials = () => {
   return <div className="mt-20 rounded-sm border-1 bg-white px-10 py-5">
     <div className=" text-lg">You can active your following Web3 identities</div>
-    <div>
+    <div >
       {
-        identities.map(({ name, image }) => <IdentityItem src={image} />)
+        identities.map(({ name, image, link }) => <IdentityItem src={image} link={link} />)
       }
     </div>
     {/* <Button>Disconnect</Button> */}
