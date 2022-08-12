@@ -6,7 +6,7 @@ interface IIdentityItem {
   src: string
 }
 const IdentityItem: FC<IIdentityItem> = ({ src }) => {
-  return <div className="my-3 mr-5 inline-block cursor-pointer">
+  return <div className="my-3 mr-5 inline-flex cursor-pointer">
     <img src={src} alt="" width={200} height={'auto'} />
   </div>
 }
@@ -20,6 +20,10 @@ const identities = [
     name: "galaxy",
     image: "/galaxy.png",
     link: "https://galaxy.eco/"
+  }, {
+    name: "cyberconnect",
+    image: "/cyberconnect.png",
+    link: "https://cyberconnect.me/",
   }
 ]
 const Web3Identicials = () => {
@@ -30,7 +34,7 @@ const Web3Identicials = () => {
         identities.map(({ name, image }) => <IdentityItem src={image} />)
       }
     </div>
-    <Button>Disconnect</Button>
+    {/* <Button>Disconnect</Button> */}
   </div>
 }
 export default Web3Identicials

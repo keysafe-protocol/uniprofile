@@ -1,4 +1,4 @@
-import { useCountDown } from "ahooks";
+import { useCountDown, useRequest } from "ahooks";
 import { Props } from "ahooks/lib/useControllableValue";
 import dayjs from "dayjs";
 import React, { FC, useState } from "react";
@@ -11,7 +11,16 @@ const VerifyCode: FC<{
   const [countDown] = useCountDown({
     targetDate: endDate || 0,
   });
+  useRequest(async () => {
+    setEndDate(
+      dayjs()
+        .add(60, "s")
+        .toDate()
+    )
+    await accountServices.authWeb3({ email })
+    console.log("ressssssds")
 
+  })
   const onResendClick = async () => {
     if (countDown > 0) return;
     await accountServices.authWeb3({ email })
@@ -38,8 +47,7 @@ const VerifyCode: FC<{
           onClick={onResendClick}
         >
           {
-
-            countDown ? <>Resend <span>({formatCountDown(countDown)})</span></> : <>Send verify code</>
+            countDown ? <>Resend <span>({formatCountDown(countDown)})</span></> : <>Resend</>
           }
         </span>
       </p>
