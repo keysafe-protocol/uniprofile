@@ -7,12 +7,17 @@ import { useEthers } from '@usedapp/core';
 import { ethers } from 'ethers';
 import SignButton from 'components/web3/SignButton';
 import services from 'stores/account/services';
+import useStores from 'hooks/use-stores';
 const Uniprofile = () => {
   const { library, account } = useEthers()
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [visible, setVisible] = useState(false)
   const [verified, setVerified] = useState(true)
+  const {
+    accountStore,
+    accountStore: { web3UserInfo },
+  } = useStores();
   const onUsernameChange = (value: string) => {
     setUsername(value)
   }
@@ -33,6 +38,7 @@ const Uniprofile = () => {
       sig: signedMessage,
       data: { uname: username, email }
     })
+    accountStore.loadWeb3UserInfo(account!)
   }
   const onVerify = () => {
     email && checkEmail(email) && setVisible(true);

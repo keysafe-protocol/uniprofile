@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import avatarImg from "assets/imgs/avatar.svg";
 import { observer } from "mobx-react-lite";
 import useStores from "hooks/use-stores";
@@ -7,15 +7,27 @@ import useQueryParam from "hooks/use-query-param";
 import { HomeMenus } from "constants/enum";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "constants/routes";
+import { useEthers } from "@usedapp/core";
 
 const Sidebar = observer(() => {
   const {
     accountStore,
     accountStore: { web3UserInfo },
+    oauthStore,
   } = useStores();
+  const { account } = useEthers()
   const [active = HomeMenus.KeyList, setActive] = useQueryParam("active");
   const navigate = useNavigate();
-
+  useEffect(() => {
+    if (account) {
+      console.log("connect")
+      accountStore.loadWeb3UserInfo(account)
+      oauthStore.loadOAuthInfoByWeb3Account(account)
+    } else {
+      accountStore.resetWeb3UserInfo()
+      oauthStore.resetOAuthInfoByWeb3Account()
+    }
+  }, [account])
   const menuClass = (menu: HomeMenus) =>
     classNames("cursor-pointer", {
       "text-basecolor font-bold": menu === active,
@@ -54,3 +66,4 @@ const Sidebar = observer(() => {
   );
 });
 export default Sidebar;
+

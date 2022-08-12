@@ -36,12 +36,12 @@ const Home = observer(() => {
     // } else if (isEmpty(accountChains)) {
     //   navigate(ROUTES.REGISTER);
     // }
-
+    navigate("/?active=uni-profile");
   }, []);
 
   const COMPONENT_MAP: Partial<Record<HomeMenus, ReactNode>> = {
-    [HomeMenus.KeyList]: <Accounts />,
-    [HomeMenus.Web2Accounts]: <Web2Accounts />,
+    // [HomeMenus.KeyList]: <Accounts />,
+    // [HomeMenus.Web2Accounts]: <Web2Accounts />,
     [HomeMenus.UniProfile]: <Uniprofile />,
     [HomeMenus.SocialLinks]: <SocialLinks />,
   };

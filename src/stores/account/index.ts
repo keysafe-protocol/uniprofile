@@ -36,6 +36,13 @@ export default class AccountStore {
     }
     ;
   }
+  async resetWeb3UserInfo ( ){
+    this.web3UserInfo = {
+      email: '',
+      account: '',
+      username: ''
+    } 
+  }
 
   updateUserInfo(userInfo: UserInfo) {
     this.userInfo = userInfo;

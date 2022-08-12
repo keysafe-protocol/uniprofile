@@ -1,7 +1,7 @@
 import { shortenIfAddress, useEthers } from "@usedapp/core"
 import Dropdown from "rc-dropdown"
 import Menu from "rc-menu"
-import React from "react"
+import React, { useEffect } from "react"
 import { FC } from "react"
 import arrowIcon from "assets/imgs/arrow-down.svg";
 import services from "stores/account/services"

@@ -14,23 +14,24 @@ import SignButton from "components/web3/SignButton";
 import { useEthers } from "@usedapp/core";
 import services from "stores/oauth/services";
 import Web3Identicials from "./web3Identicials";
+import oauthServices from "stores/oauth/services";
 
 const SocialLinks = observer(() => {
   const {
     oauthStore,
     oauthStore: { oauthConnenctedByWeb3 },
   } = useStores();
-  const { account } = useEthers()
+  const { account } = useEthers();
   const { loading } = useRequest(async () => {
     return await oauthStore.loadOAuthInfoByWeb3Account(account!);
   }, {
     ready: !!account
   });
-  const onSave = (signedMessage: string) => {
-    return services.registerOauthByWeb3('github', { data: "fake oauth code", sig: signedMessage })
+  const onSave = async (signedMessage: string) => {
+    await services.registerOauthByWeb3('github', { data: "fake oauth code", sig: signedMessage })
+    oauthStore.loadOAuthInfoByWeb3Account(account!)
   }
   if (loading) return <Loading />;
-  console.log(oauthConnenctedByWeb3)
   return (
     <div className="ml-4 pt-8">
       <h3 className="text-2xl text-basecolor font-bold">My Web2 Accounts</h3>
