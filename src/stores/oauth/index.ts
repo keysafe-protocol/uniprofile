@@ -15,8 +15,12 @@ export default class OAuthStore {
     this.oauthConnencted = res.data || [];
   }
   async loadOAuthInfoByWeb3Account(account: string) {
-    const res: any = await oauthServices.getOAuthInfoByWeb3Account(account);
+    try {
+      const res: any = await oauthServices.getOAuthInfoByWeb3Account(account);
     this.oauthConnenctedByWeb3 = res.oauth || [];
+    } catch (error) {
+      this.oauthConnenctedByWeb3 = []
+    }
   }
   async resetOAuthInfoByWeb3Account() {
     this.oauthConnenctedByWeb3 = []

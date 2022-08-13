@@ -29,8 +29,10 @@ const SocialLinks = observer(() => {
     ready: !!account
   });
   const onSave = async (signedMessage: string) => {
+    console.log(ls.get('github_token'))
     await services.registerOauthByWeb3('github', { data: ls.get('github_token'), sig: signedMessage })
     oauthStore.loadOAuthInfoByWeb3Account(account!)
+    ls.set("github_token", "")
   }
   if (loading) return <Loading />;
   return (
@@ -48,7 +50,7 @@ const SocialLinks = observer(() => {
       <SignButton
         className="mt-10"
         text="SAVE"
-        message={ls.get('github_token')}
+        lskey="github_token"
         onSuccess={onSave}>
       </SignButton>
       <Web3Identicials />

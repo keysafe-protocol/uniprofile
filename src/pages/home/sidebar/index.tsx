@@ -20,7 +20,6 @@ const Sidebar = observer(() => {
   const navigate = useNavigate();
   useEffect(() => {
     if (account) {
-      console.log("connect")
       accountStore.loadWeb3UserInfo(account)
       oauthStore.loadOAuthInfoByWeb3Account(account)
     } else {

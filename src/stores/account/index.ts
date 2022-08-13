@@ -26,15 +26,20 @@ export default class AccountStore {
     };
   }
   async loadWeb3UserInfo(account: string) {
-    const res = await services.getWeb3Userinfo(account);
+    try {
+      const res = await services.getWeb3Userinfo(account);
     if(res.status === 'success' ) {
       this.web3UserInfo = {
         email: res.user.email,
         account,
         username: res.user.uname
       }  
+    } else {
+      this.resetWeb3UserInfo()
     }
-    ;
+    } catch (error) {
+      this.resetWeb3UserInfo()
+    }
   }
   async resetWeb3UserInfo ( ){
     this.web3UserInfo = {

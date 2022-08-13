@@ -23,7 +23,6 @@ const Home = observer(() => {
     accountStore: { web3UserInfo },
   } = useStores();
   const { account } = useEthers()
-  console.log("account", account)
   useRequest(async () => {
     return accountStore.loadWeb3UserInfo(account!);
   }, { ready: !!account });

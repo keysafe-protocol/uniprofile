@@ -18,7 +18,6 @@ const VerifyCode: FC<{
         .toDate()
     )
     await accountServices.authWeb3({ email })
-    console.log("ressssssds")
 
   })
   const onResendClick = async () => {

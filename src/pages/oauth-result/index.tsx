@@ -19,7 +19,7 @@ const OAuthResult = (props: any) => {
   const [countDown] = useCountDown({
     targetDate,
     onEnd: () => {
-      // window.close();
+      window.close();
     },
   });
 
