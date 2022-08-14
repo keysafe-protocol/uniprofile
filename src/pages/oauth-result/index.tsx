@@ -12,23 +12,13 @@ import { useEthers } from "@usedapp/core";
 
 const OAuthResult = (props: any) => {
   const postedRef = useRef(false);
-  const {
-    oauthStore,
-    oauthStore: { oauthConnenctedByWeb3 },
-  } = useStores();
   const { library, account } = useEthers()
   const [targetDate, setTargetDate] = useState<Date>();
-  const [token, setToken] = useLocalStorageState<string | undefined>(
-    'github_token',
-    {
-      defaultValue: '',
-    },
-  );
   const [countDown] = useCountDown({
     targetDate,
-    // onEnd: () => {
-    //   window.close();
-    // },
+    onEnd: () => {
+      window.close();
+    },
   });
 
   const search = window.location.search;

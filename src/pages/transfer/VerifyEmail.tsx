@@ -80,7 +80,6 @@ const VerifyEmail: FC<Props> = ({ onCancel, onOk }) => {
       const { data } = await RecoverServices.getMailByAccount({
         account: userInfo.email!,
       });
-      console.log(data);
       setEmail(data || userInfo.email);
     };
     fetch();
