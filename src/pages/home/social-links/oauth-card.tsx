@@ -1,5 +1,5 @@
 import { OAuthOrg, OAuthType, PostMesaageType } from "constants/enum";
-import React, { FC, useEffect, useMemo } from "react";
+import React, { FC, useEffect, useMemo, useState } from "react";
 import googleIcon from "assets/imgs/google.svg";
 import githubIcon from "assets/imgs/github.svg";
 import twitterIcon from "assets/imgs/twitter.svg";
@@ -14,6 +14,8 @@ import useStores from "hooks/use-stores";
 import { OAuthInfo } from "stores/oauth/types";
 import { findIndex } from "lodash-es";
 import { useEthers } from "@usedapp/core";
+import services from "stores/oauth/services";
+import { useRequest } from "ahooks";
 
 const iconMap: Record<OAuthOrg, string> = {
   [OAuthOrg.Github]: githubIcon,
@@ -27,12 +29,31 @@ type Props = {
 };
 const OAuthCard: FC<Props> = observer(({ type, oauthInfo }) => {
   const { oauthStore } = useStores();
-  const { account } = useEthers()
+  const { library, account, activateBrowserWallet } = useEthers()
+  const [code, setCode] = useState('')
   useEffect(() => {
     return () => {
       window.removeEventListener("message", onMessage);
     };
   }, []);
+  useRequest(async () => {
+    const signedMessage = await library?.getSigner().signMessage(code);
+    await services.registerOauthByWeb3('github', { data: code, sig: signedMessage })
+    oauthStore.loadOAuthInfoByWeb3Account(account!)
+    message({
+      content: (
+        <div>
+          <h3 className="text-center text-basecolor">
+            Authorization is successful
+          </h3>
+        </div>
+      ),
+      closable: true,
+      duration: 3,
+    })
+  }, {
+    ready: !!account && !!code
+  })
 
   const connected = useMemo(() => {
     return oauthInfo?.org === type;
@@ -45,28 +66,8 @@ const OAuthCard: FC<Props> = observer(({ type, oauthInfo }) => {
   const onMessage = async (e: MessageEvent) => {
     const data = e.data;
     if (data.type === PostMesaageType.OAuthSuccess) {
-      const res = await oauthServices.oauth({
-        code: data.data,
-        org: OAuthOrg.Github,
-      });
-      await oauthStore.loadOAuthInfoByWeb3Account(account!);
-      message({
-        content: (
-          <div>
-            <h3 className="text-center text-basecolor">
-              Authorization is successful
-            </h3>
-            <pre
-              className="mt-2 overflow-auto"
-              style={{ maxHeight: `calc(100vh - 10rem)` }}
-            >
-              {JSON.stringify(JSON.parse(res.profile || ""), null, 2)}
-            </pre>
-          </div>
-        ),
-        closable: true,
-        duration: 9999,
-      });
+      const code = data.data;
+      setCode(code)
       window.removeEventListener("message", onMessage);
     }
   };

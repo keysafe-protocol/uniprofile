@@ -66,7 +66,7 @@ const Uniprofile = () => {
           <div>Email</div>
           <div className='relative'>
             <Input value={email} onChange={(e) => onEmailChange(e.target.value)} />
-            <Button type="primary" className='absolute ml-5 mt-2' onClick={onVerify}>Verify</Button>
+            <Button type="primary" disable={!checkEmail(email)} className='absolute ml-5 mt-2' onClick={onVerify}>Verify</Button>
           </div>
         </div>
       </div>

@@ -6,9 +6,17 @@ import { useCountDown, useLocalStorageState, useRequest } from "ahooks";
 import { OAuthOrg, PostMesaageType } from "constants/enum";
 import dayjs from "dayjs";
 import { formatCountDown } from "utils";
+import services from "stores/oauth/services";
+import useStores from "hooks/use-stores";
+import { useEthers } from "@usedapp/core";
 
 const OAuthResult = (props: any) => {
   const postedRef = useRef(false);
+  const {
+    oauthStore,
+    oauthStore: { oauthConnenctedByWeb3 },
+  } = useStores();
+  const { library, account } = useEthers()
   const [targetDate, setTargetDate] = useState<Date>();
   const [token, setToken] = useLocalStorageState<string | undefined>(
     'github_token',
@@ -18,9 +26,9 @@ const OAuthResult = (props: any) => {
   );
   const [countDown] = useCountDown({
     targetDate,
-    onEnd: () => {
-      window.close();
-    },
+    // onEnd: () => {
+    //   window.close();
+    // },
   });
 
   const search = window.location.search;
@@ -42,31 +50,17 @@ const OAuthResult = (props: any) => {
         },
         window.opener.location
       );
-      setToken(code as string)
       setTargetDate(
         dayjs()
           .add(3, "s")
           .toDate()
       );
 
-      return;
-      const res = await oauthServices.oauth({
-        code: code as string,
-        org: OAuthOrg.Github,
-      });
-      console.log(res);
-      if (window.opener) {
-        window.opener.postMessage(
-          {
-            type: PostMesaageType.OAuthSuccess,
-            data: JSON.parse(res.profile || ""),
-          },
-          window.opener.location
-        );
-      }
     } else {
       return Error();
     }
+  }, {
+    ready: !!account
   });
 
   return (

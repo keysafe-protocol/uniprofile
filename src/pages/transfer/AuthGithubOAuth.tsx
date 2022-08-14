@@ -52,7 +52,7 @@ const AuthGithubOAuth = () => {
 
   const onConnectWithGithub = () => {
     oauth.open();
-    window.addEventListener("message", onMessage);
+    // window.addEventListener("message", onMessage);
   };
 
   return (

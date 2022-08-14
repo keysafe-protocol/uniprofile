@@ -10,7 +10,7 @@ import { isEmpty } from "lodash-es";
 import { observer } from "mobx-react-lite";
 import React, { ReactComponentElement, ReactNode } from "react";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useRoutes } from "react-router-dom";
 import Accounts from "./accounts";
 import Sidebar from "./sidebar";
 import SocialLinks from "./social-links";

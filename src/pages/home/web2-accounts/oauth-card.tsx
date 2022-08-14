@@ -42,38 +42,38 @@ const OAuthCard: FC<Props> = observer(({ type, oauthInfo }) => {
   }, [type]);
 
   const onMessage = async (e: MessageEvent) => {
-    const data = e.data;
-    if (data.type === PostMesaageType.OAuthSuccess) {
-      const res = await oauthServices.oauth({
-        code: data.data,
-        org: OAuthOrg.Github,
-      });
-      await oauthStore.loadOAuthInfo();
-      message({
-        content: (
-          <div>
-            <h3 className="text-center text-basecolor">
-              Authorization is successful
-            </h3>
-            <pre
-              className="mt-2 overflow-auto"
-              style={{ maxHeight: `calc(100vh - 10rem)` }}
-            >
-              {JSON.stringify(JSON.parse(res.profile || ""), null, 2)}
-            </pre>
-          </div>
-        ),
-        closable: true,
-        duration: 9999,
-      });
-      window.removeEventListener("message", onMessage);
-    }
+    //   const data = e.data;
+    //   if (data.type === PostMesaageType.OAuthSuccess) {
+    //     const res = await oauthServices.oauth({
+    //       code: data.data,
+    //       org: OAuthOrg.Github,
+    //     });
+    //     await oauthStore.loadOAuthInfo();
+    //     message({
+    //       content: (
+    //         <div>
+    //           <h3 className="text-center text-basecolor">
+    //             Authorization is successful
+    //           </h3>
+    //           <pre
+    //             className="mt-2 overflow-auto"
+    //             style={{ maxHeight: `calc(100vh - 10rem)` }}
+    //           >
+    //             {JSON.stringify(JSON.parse(res.profile || ""), null, 2)}
+    //           </pre>
+    //         </div>
+    //       ),
+    //       closable: true,
+    //       duration: 9999,
+    //     });
+    //     window.removeEventListener("message", onMessage);
+    //   }
   };
 
   const onVerify = () => {
     if (!isSupport) return;
     oauth.open();
-    window.addEventListener("message", onMessage);
+    // window.addEventListener("message", onMessage);
   };
 
   const onView = () => {

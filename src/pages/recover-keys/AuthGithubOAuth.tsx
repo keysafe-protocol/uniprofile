@@ -45,14 +45,16 @@ const AuthGithubOAuth = () => {
 
   const onMessage = (e: MessageEvent) => {
     const data: PostMesaageData = e.data;
+    console.log("OAuthSuccess")
     if (data.type === PostMesaageType.OAuthSuccess) {
-      setCode(data.data);
+      console.log("OAuthSuccess")
+      // setCode(data.data);
     }
   };
 
   const onConnectWithGithub = () => {
     oauth.open();
-    window.addEventListener("message", onMessage);
+    // window.addEventListener("message", onMessage);
   };
 
   return (

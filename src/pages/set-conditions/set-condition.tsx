@@ -142,7 +142,7 @@ const SetCondition: FC<Props> = observer(({ conditionIndex }) => {
 
   const onConnectWithGithub = () => {
     oauth.open();
-    window.addEventListener("message", onMessage);
+    // window.addEventListener("message", onMessage);
   };
 
   const renderCondition = () => {

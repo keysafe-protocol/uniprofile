@@ -48,9 +48,9 @@ request.interceptors.response.use(
     if (error.response.status === 401) {
       // window.location.href = `#${ROUTES.LOGIN_HOME}`;
     } else {
-      message({
-        content: error?.response?.data || error?.message,
-      });
+      // message({
+      //   content: error?.response?.data || error?.message,
+      // });
     }
     throw Error(error);
   }

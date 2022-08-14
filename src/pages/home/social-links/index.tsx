@@ -47,12 +47,6 @@ const SocialLinks = observer(() => {
           />
         ))}
       </div>
-      <SignButton
-        className="mt-10"
-        text="SAVE"
-        lskey="github_token"
-        onSuccess={onSave}>
-      </SignButton>
       <Web3Identicials />
     </div>
 

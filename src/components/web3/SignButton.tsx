@@ -11,11 +11,20 @@ type Props = {
   onSuccess: (signedMessage: string) => void
 }
 const SignButton: FC<Props & Partial<React.ComponentProps<typeof Button>>> = ({ text, message, onSuccess, lskey, ...props }) => {
-  const { library } = useEthers()
+  const { library, account, activateBrowserWallet } = useEthers()
   const onClick = async () => {
-    const signer = await library?.getSigner()
-    const signedMessage = await signer?.signMessage(lskey ? ls.get(lskey) : message)
-    onSuccess(signedMessage!)
+    const msg = lskey ? ls.get(lskey) : message;
+
+    if (msg) {
+      const signer = await library?.getSigner()
+      const signedMessage = await signer?.signMessage(lskey ? ls.get(lskey) : message)
+      onSuccess(signedMessage!)
+    }
+  }
+  if (!account) {
+    return <Button {...props} type="primary" onClick={() => {
+      activateBrowserWallet()
+    }}>Connect to wallet</Button>
   }
   return <Button {...props} type="primary" onClick={onClick}>{text}</Button>
 }
