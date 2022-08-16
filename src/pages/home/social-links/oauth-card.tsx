@@ -17,6 +17,7 @@ import { useEthers } from "@usedapp/core";
 import services from "stores/oauth/services";
 import { useRequest } from "ahooks";
 import ls from "utils/ls";
+import OAuthStore from "stores/oauth";
 
 const iconMap: Record<OAuthOrg, string> = {
   [OAuthOrg.Github]: githubIcon,
@@ -29,7 +30,7 @@ type Props = {
   oauthInfo: OAuthInfo | undefined;
 };
 const OAuthCard: FC<Props> = observer(({ type, oauthInfo }) => {
-  const { oauthStore } = useStores();
+  const { oauthStore, oauthStore: { githubAuthCode } } = useStores();
   const { library, account, activateBrowserWallet } = useEthers()
   const [code, setCode] = useState('')
   useEffect(() => {
@@ -94,13 +95,13 @@ const OAuthCard: FC<Props> = observer(({ type, oauthInfo }) => {
         <img src={iconMap[type]} className="w-20" />
         <div className="mt-2 font-bold">{type}</div>
       </div>
-      <div className="mt-6 text-sm">
+      <div className="mt-6 text-sm text-center">
         {connected ? (
           <span className="flex">
             Connected <img src={checkedIcon} className="w-3 ml-1" />
           </span>
         ) : (
-          "Unconnected"
+          <span className="w-100">{type === 'github' && !!githubAuthCode ? 'Verified' : "Unconnected"}</span>
         )}
       </div>
       {!connected && (
