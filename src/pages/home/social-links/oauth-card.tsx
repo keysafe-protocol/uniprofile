@@ -16,6 +16,7 @@ import { findIndex } from "lodash-es";
 import { useEthers } from "@usedapp/core";
 import services from "stores/oauth/services";
 import { useRequest } from "ahooks";
+import ls from "utils/ls";
 
 const iconMap: Record<OAuthOrg, string> = {
   [OAuthOrg.Github]: githubIcon,
@@ -36,24 +37,6 @@ const OAuthCard: FC<Props> = observer(({ type, oauthInfo }) => {
       window.removeEventListener("message", onMessage);
     };
   }, []);
-  useRequest(async () => {
-    const signedMessage = await library?.getSigner().signMessage(code);
-    await services.registerOauthByWeb3('github', { data: code, sig: signedMessage })
-    oauthStore.loadOAuthInfoByWeb3Account(account!)
-    message({
-      content: (
-        <div>
-          <h3 className="text-center text-basecolor">
-            Authorization is successful
-          </h3>
-        </div>
-      ),
-      closable: true,
-      duration: 3,
-    })
-  }, {
-    ready: !!account && !!code
-  })
 
   const connected = useMemo(() => {
     return oauthInfo?.org === type;
@@ -67,7 +50,7 @@ const OAuthCard: FC<Props> = observer(({ type, oauthInfo }) => {
     const data = e.data;
     if (data.type === PostMesaageType.OAuthSuccess) {
       const code = data.data;
-      setCode(code)
+      oauthStore.setGithubAuthCode(code)
       window.removeEventListener("message", onMessage);
     }
   };

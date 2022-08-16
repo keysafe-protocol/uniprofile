@@ -31,7 +31,7 @@ const VerifyEmail: FC<Props> = ({ email, onCancel, onOk }) => {
   return <Dialog
     visible={true}
     onClose={onCancel}
-    title="AUTH #1"
+    title="Email verification"
     footer={
       <footer className="  text-center">
         <Button onClick={onCancel} className={'mr-10'}>CANCEL</Button>

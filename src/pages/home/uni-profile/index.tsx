@@ -75,7 +75,7 @@ const Uniprofile = () => {
       <footer className="mt-10">
         <SignButton
           className="mr-4"
-          disable={!verified || !account}
+          disable={!verified}
           text="SAVE"
           message={JSON.stringify({ uname: username, email })}
           onSuccess={onSignSuccess}

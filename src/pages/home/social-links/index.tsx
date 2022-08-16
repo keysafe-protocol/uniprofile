@@ -20,7 +20,7 @@ import ls from "utils/ls";
 const SocialLinks = observer(() => {
   const {
     oauthStore,
-    oauthStore: { oauthConnenctedByWeb3 },
+    oauthStore: { oauthConnenctedByWeb3, githubAuthCode },
   } = useStores();
   const { account } = useEthers();
   const { loading } = useRequest(async () => {
@@ -29,10 +29,9 @@ const SocialLinks = observer(() => {
     ready: !!account
   });
   const onSave = async (signedMessage: string) => {
-    console.log(ls.get('github_token'))
-    await services.registerOauthByWeb3('github', { data: ls.get('github_token'), sig: signedMessage })
+    await services.registerOauthByWeb3('github', { data: githubAuthCode, sig: signedMessage })
     oauthStore.loadOAuthInfoByWeb3Account(account!)
-    ls.set("github_token", "")
+    oauthStore.setGithubAuthCode('')
   }
   if (loading) return <Loading />;
   return (
@@ -47,6 +46,12 @@ const SocialLinks = observer(() => {
           />
         ))}
       </div>
+      <SignButton
+        className="mr-4 mt-4"
+        text="SAVE"
+        message={githubAuthCode}
+        onSuccess={onSave}
+      />
       <Web3Identicials />
     </div>
 
