@@ -57,12 +57,17 @@ const OAuthCard: FC<Props> = observer(({ type, oauthInfo }) => {
   };
 
   const onVerify = () => {
-    if (!isSupport) return;
+    if (!isSupport) {
+      return message({
+        content: "Cooming soon"
+      })
+    };
     oauth.open();
     window.addEventListener("message", onMessage);
   };
 
   const onView = () => {
+    console.log(oauthInfo)
     message({
       content: (
         <div>
@@ -71,7 +76,7 @@ const OAuthCard: FC<Props> = observer(({ type, oauthInfo }) => {
             className="mt-2 overflow-auto"
             style={{ maxHeight: `calc(100vh - 10rem)` }}
           >
-            {JSON.stringify(JSON.parse(oauthInfo?.tee_profile || ""), null, 2)}
+            {JSON.stringify(JSON.parse(oauthInfo?.oprofile || ""), null, 2)}
           </pre>
         </div>
       ),
@@ -135,6 +140,11 @@ const OAuthCard: FC<Props> = observer(({ type, oauthInfo }) => {
               onClick={onView}
             >
               View <br /> Profile
+            </span>
+            <span
+              className="mt-1 inline-block text-center text-sm leading-none bg-baseblue rounded-2xl px-4 py-1 text-white cursor-pointer"
+            >
+              Disconnect
             </span>
           </div>
         </div>

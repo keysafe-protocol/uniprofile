@@ -11,4 +11,5 @@ export type OAuthInfo = {
   org: OAuthOrg;
   tee_profile: string;
   tee_profile_size: number;
+  oprofile: string
 };

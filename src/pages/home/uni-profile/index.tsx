@@ -8,12 +8,13 @@ import { ethers } from 'ethers';
 import SignButton from 'components/web3/SignButton';
 import services from 'stores/account/services';
 import useStores from 'hooks/use-stores';
+import message from 'utils/message';
 const Uniprofile = () => {
   const { library, account } = useEthers()
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [visible, setVisible] = useState(false)
-  const [verified, setVerified] = useState(true)
+  const [verified, setVerified] = useState(false)
   const {
     accountStore,
     accountStore: { web3UserInfo },
@@ -41,6 +42,11 @@ const Uniprofile = () => {
     accountStore.loadWeb3UserInfo(account!)
   }
   const onVerify = () => {
+    if (!account) {
+      return message({
+        content: "Please connect your wallet"
+      })
+    }
     email && checkEmail(email) && setVisible(true);
   }
   return <section className="flex justify-center items-center ks-full-container">
@@ -75,7 +81,7 @@ const Uniprofile = () => {
       <footer className="mt-10">
         <SignButton
           className="mr-4"
-          disable={!verified}
+          disable={!verified || !email || !username}
           text="SAVE"
           message={JSON.stringify({ uname: username, email })}
           onSuccess={onSignSuccess}

@@ -49,6 +49,7 @@ const SocialLinks = observer(() => {
       <SignButton
         className="mr-4 mt-4"
         text="SAVE"
+        disable={!githubAuthCode}
         message={githubAuthCode}
         onSuccess={onSave}
       />
