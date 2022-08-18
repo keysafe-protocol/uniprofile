@@ -65,6 +65,15 @@ const OAuthCard: FC<Props> = observer(({ type, oauthInfo }) => {
     oauth.open();
     window.addEventListener("message", onMessage);
   };
+  const disconnect = async () => {
+    try {
+      await services.deleteOauthByWeb3('github', account!)
+      await oauthStore.loadOAuthInfoByWeb3Account(account!)
+    } catch (error) {
+
+    }
+
+  }
 
   const onView = () => {
     console.log(oauthInfo)
@@ -142,6 +151,7 @@ const OAuthCard: FC<Props> = observer(({ type, oauthInfo }) => {
               View <br /> Profile
             </span>
             <span
+              onClick={disconnect}
               className="mt-1 inline-block text-center text-sm leading-none bg-baseblue rounded-2xl px-4 py-1 text-white cursor-pointer"
             >
               Disconnect

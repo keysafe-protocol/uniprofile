@@ -14,6 +14,9 @@ const oauthServices = {
   },
   registerOauthByWeb3 (type: TOAuthType, data: any) {
     return request.post(`/register_${type}_oauth`,data)
+  },
+  deleteOauthByWeb3(type: TOAuthType, account: string) {
+    return request.post('/delete_oauth', {account, org: type}) 
   }
 };
 
