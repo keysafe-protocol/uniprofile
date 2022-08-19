@@ -59,9 +59,14 @@ const OAuthCard: FC<Props> = observer(({ type, oauthInfo }) => {
   const onVerify = () => {
     if (!isSupport) {
       return message({
-        content: "Cooming soon"
+        content: "Coming soon..."
       })
     };
+    if (!account) {
+      return message({
+        content: "Please connect your wallet!"
+      })
+    }
     oauth.open();
     window.addEventListener("message", onMessage);
   };
