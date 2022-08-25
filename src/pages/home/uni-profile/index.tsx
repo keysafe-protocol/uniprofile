@@ -1,7 +1,7 @@
 import Button from 'components/button';
 import Input from 'components/input';
 import VerifyEmail from './VerifyEmail';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { checkEmail } from 'utils';
 import { useEthers } from '@usedapp/core';
 import { ethers } from 'ethers';
@@ -11,14 +11,20 @@ import useStores from 'hooks/use-stores';
 import message from 'utils/message';
 const Uniprofile = () => {
   const { library, account } = useEthers()
-  const [username, setUsername] = useState('')
-  const [email, setEmail] = useState('')
-  const [visible, setVisible] = useState(false)
-  const [verified, setVerified] = useState(false)
+
   const {
     accountStore,
     accountStore: { web3UserInfo },
   } = useStores();
+  const [email, setEmail] = useState(web3UserInfo.email || '')
+  const [username, setUsername] = useState(web3UserInfo.username || '')
+  useEffect(() => {
+    setEmail(web3UserInfo.email!)
+    setUsername(web3UserInfo.username!)
+  }, [web3UserInfo])
+
+  const [visible, setVisible] = useState(false)
+  const [verified, setVerified] = useState(false)
   const onUsernameChange = (value: string) => {
     setUsername(value)
   }
@@ -72,7 +78,7 @@ const Uniprofile = () => {
           <div>Email</div>
           <div className='relative'>
             <Input value={email} onChange={(e) => onEmailChange(e.target.value)} />
-            <Button type="primary" disable={!checkEmail(email)} className='absolute ml-5 mt-2' onClick={onVerify}>Verify</Button>
+            <Button type="primary" disable={!checkEmail(email) || web3UserInfo.email === email} className='absolute ml-5 mt-2' onClick={onVerify}>Verify</Button>
           </div>
         </div>
       </div>

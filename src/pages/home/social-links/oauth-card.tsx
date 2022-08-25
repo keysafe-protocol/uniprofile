@@ -81,7 +81,6 @@ const OAuthCard: FC<Props> = observer(({ type, oauthInfo }) => {
   }
 
   const onView = () => {
-    console.log(oauthInfo)
     message({
       content: (
         <div>
