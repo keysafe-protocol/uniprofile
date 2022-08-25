@@ -1,7 +1,7 @@
 import Button from 'components/button';
 import Input from 'components/input';
 import VerifyEmail from './VerifyEmail';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { checkEmail } from 'utils';
 import { useEthers } from '@usedapp/core';
 import { ethers } from 'ethers';
@@ -40,12 +40,14 @@ const Uniprofile = () => {
     // TODO: 调用后端接口, 传入签名前后的数据, 后端可以拿到钱包地址
 
   }
+  const changed = useMemo(() => web3UserInfo.email !== email || web3UserInfo.username !== username, [web3UserInfo, username, email])
   const onSignSuccess = async (signedMessage: string) => {
     await services.registerWeb3User({
       sig: signedMessage,
       data: { uname: username, email }
     })
     accountStore.loadWeb3UserInfo(account!)
+    setVerified(false)
   }
   const onVerify = () => {
     if (!account) {
@@ -78,7 +80,7 @@ const Uniprofile = () => {
           <div>Email</div>
           <div className='relative'>
             <Input value={email} onChange={(e) => onEmailChange(e.target.value)} />
-            <Button type="primary" disable={!checkEmail(email) || web3UserInfo.email === email} className='absolute ml-5 mt-2' onClick={onVerify}>Verify</Button>
+            <Button type="primary" disable={!checkEmail(email) || !changed} className='absolute ml-5 mt-2' onClick={onVerify}>Verify</Button>
           </div>
         </div>
       </div>
