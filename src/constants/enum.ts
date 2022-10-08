@@ -19,6 +19,7 @@ export enum HomeMenus {
   GeneralSettings = "general-settings",
   UniProfile = "uni-profile",
   SocialLinks = "social-links",
+  Authorizations = "authorizations",
   Logout = "logout",
 }
 
@@ -37,4 +38,10 @@ export enum OAuthOrg {
   Github = "github",
   Google = "google",
   Twitter = "twitter",
+}
+export enum EStatus {
+  CANCELED = -2,
+  DENIED,
+  PENDING,
+  APPROVED,
 }

@@ -13,6 +13,7 @@ const Sidebar = observer(() => {
   const {
     accountStore,
     accountStore: { web3UserInfo },
+    requestHistoryStore,
     oauthStore,
   } = useStores();
   const { account } = useEthers()
@@ -22,9 +23,11 @@ const Sidebar = observer(() => {
     if (account) {
       accountStore.loadWeb3UserInfo(account)
       oauthStore.loadOAuthInfoByWeb3Account(account)
+      requestHistoryStore.loadRequestAuthList(account)
     } else {
       accountStore.resetWeb3UserInfo()
       oauthStore.resetOAuthInfoByWeb3Account()
+      requestHistoryStore.resetRequestAuthList()
     }
   }, [account])
   const menuClass = (menu: HomeMenus) =>
@@ -58,6 +61,12 @@ const Sidebar = observer(() => {
             onClick={() => onMenuClick(HomeMenus.SocialLinks)}
           >
             My Social Links
+          </li>
+          <li
+            className={menuClass(HomeMenus.Authorizations)}
+            onClick={() => onMenuClick(HomeMenus.Authorizations)}
+          >
+            My Authorizations
           </li>
         </ul>
       </div>

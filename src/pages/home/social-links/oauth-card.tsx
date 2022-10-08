@@ -17,7 +17,6 @@ import { useEthers } from "@usedapp/core";
 import services from "stores/oauth/services";
 import { useRequest } from "ahooks";
 import ls from "utils/ls";
-import OAuthStore from "stores/oauth";
 
 const iconMap: Record<OAuthOrg, string> = {
   [OAuthOrg.Github]: githubIcon,
