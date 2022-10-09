@@ -17,7 +17,7 @@ const Authorizations = () => {
     <br />
     <br />
     <div className="w-full lg:w-5/6">
-      <h1 className="h-8 font-bold leading-8 text-2xl my-2">Requests history</h1>
+      <h1 className="h-8 font-bold leading-8 text-2xl my-2">Request History</h1>
       <Table headers={headers} items={requestHistory} />
     </div>
   </div>

@@ -18,7 +18,7 @@ const getText = (key: string) => {
 }
 const THeader: FC<ITHeader> = ({ items }) => {
   return <thead>
-    <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+    <tr className="bg-gray-200 text-gray-600 text-sm leading-normal">
       {items.map((item) => (<th
         className="py-3 px-6 text-left">
         {getText(item)}
