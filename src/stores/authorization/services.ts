@@ -5,7 +5,7 @@ interface DAuthOPermitData {
   handler: EStatus;
 }
 const dAuthServices = {
-  dAuthPermit(data: DAuthOPermitData) {
+  dAuthPermit(data: any) {
     return request.post(`/dauth_permit`, data);
   },
 

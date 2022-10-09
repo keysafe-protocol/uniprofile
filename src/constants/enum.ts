@@ -40,8 +40,8 @@ export enum OAuthOrg {
   Twitter = "twitter",
 }
 export enum EStatus {
-  CANCELED = -2,
-  DENIED,
-  PENDING,
-  APPROVED,
+  CANCELED = "-2",
+  DENIED = "-1",
+  PENDING = "0",
+  APPROVED = "1",
 }

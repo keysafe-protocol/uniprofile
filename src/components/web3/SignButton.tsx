@@ -19,7 +19,6 @@ const SignButton: FC<Props & Partial<React.ComponentProps<typeof Button>>> = ({ 
         content: "Please connect your wallet"
       });
     }
-    console.log(message)
 
 
     const signer = await library?.getSigner()
