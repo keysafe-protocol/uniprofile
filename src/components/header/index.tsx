@@ -14,6 +14,7 @@ const Header = observer(() => {
       <h1 className="text-3xl   text-white">
         <Link to={'/?active=uni-profile'}>
           <span className="text-basecolor font-bold">Uniprofile</span>{" "}
+          <span className="text-basecolor font-bold">Demo</span>{" "}
         </Link>
       </h1>
       <nav className="text-white border border-white rounded-full h-10 flex items-center justify-center px-6 font-bold">
