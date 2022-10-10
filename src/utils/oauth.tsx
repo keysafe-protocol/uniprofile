@@ -1,4 +1,3 @@
-import { GITHUB_CLIENT_ID } from "constants/index";
 import { ROUTES } from "constants/routes";
 import queryString from "query-string";
 
@@ -30,7 +29,7 @@ const oauth = {
     // window.open(url, "producthuntPopup", windowOpts);
 
     const config = {
-      client_id: GITHUB_CLIENT_ID,
+      client_id: process.env.REACT_APP_GITHUB_CLIENT_ID,
       redirect_uri: `${window.location.origin}/#${ROUTES.OAUTH_RESULT}`,
       scope: "user",
     };

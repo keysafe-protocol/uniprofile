@@ -27,6 +27,7 @@ const Home = observer(() => {
   useEffect(() => {
     navigate("/?active=uni-profile");
   }, []);
+  console.log("REACT_APP_GITHUB_CLIENT_ID", process.env.REACT_APP_GITHUB_CLIENT_ID)
 
   const COMPONENT_MAP: Partial<Record<HomeMenus, ReactNode>> = {
     [HomeMenus.UniProfile]: <Uniprofile />,

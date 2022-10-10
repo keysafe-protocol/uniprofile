@@ -1,4 +1,4 @@
-import { GITHUB_CLIENT_ID } from "constants/index";
+import { } from "constants/index";
 import React from "react";
 import oauth from "utils/oauth";
 import queryString from "query-string";

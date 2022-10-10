@@ -14,7 +14,7 @@ import { findIndex, isEmpty, uniq } from "lodash-es";
 import { ConditionType, OAuthOrg, PostMesaageType } from "constants/enum";
 import { QRCodeSVG } from "qrcode.react";
 import { encrypt2 } from "utils/secure";
-import { GITHUB_CLIENT_ID } from "constants/index";
+import { } from "constants/index";
 import { ROUTES } from "constants/routes";
 import oauth from "utils/oauth";
 import { PostMesaageData } from "stores/common/types";

@@ -1,4 +1,3 @@
-import { GITHUB_CLIENT_ID } from "constants/index";
 import React from "react";
 import oauth from "utils/oauth";
 import queryString from "query-string";
@@ -14,8 +13,6 @@ import SignButton from "components/web3/SignButton";
 import { useEthers } from "@usedapp/core";
 import services from "stores/oauth/services";
 import Web3Identicials from "./web3Identicials";
-import oauthServices from "stores/oauth/services";
-import ls from "utils/ls";
 
 const SocialLinks = observer(() => {
   const {
